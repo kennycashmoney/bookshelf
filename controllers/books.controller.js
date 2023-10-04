@@ -1,4 +1,8 @@
-const { books, getNextAutoId, incrementNextAutoId } = require("../models/books.models");
+const {
+  books,
+  getNextAutoId,
+  incrementNextAutoId,
+} = require("../models/books.models");
 
 function addBook(req, res) {
   if (!req.body.title) {
@@ -20,6 +24,23 @@ function addBook(req, res) {
   res.json(newBook);
 }
 
-module.exports = {
-    addBook,
+function getBooks(_req, res) {
+  res.json(books);
 }
+
+function getBook(req, res) {
+    const bookId = Number(req.params.id);
+    const book = books[bookId];
+
+    if (!book) {
+        return res.status(404).json({error: 'book not found...'});
+    }
+    
+    res.send(res.json(book));
+}
+
+module.exports = {
+  addBook,
+  getBooks,
+  getBook,
+};
