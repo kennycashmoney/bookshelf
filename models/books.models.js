@@ -167,4 +167,18 @@ const books = [
   },
 ];
 
-module.exports = books;
+let nextAutoId = 33;
+
+function getNextAutoId() {
+  return nextAutoId;
+}
+
+function incrementNextAutoId() {
+  nextAutoId++;
+}
+
+module.exports = {
+  books,
+  getNextAutoId,
+  incrementNextAutoId,
+};
