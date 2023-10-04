@@ -60,9 +60,21 @@ function updateBook(req, res) {
   res.json(book);
 }
 
+function removeBook(req, res) {
+  const bookId = Number(req.params.id);
+  const book = books[bookId];
+
+  if (!book) {
+    return res.status(404).json({ error: "book not found..." });
+  }
+
+  res.json(books.splice(bookId, 1));
+}
+
 module.exports = {
   addBook,
   getBooks,
   getBook,
   updateBook,
+  removeBook,
 };
