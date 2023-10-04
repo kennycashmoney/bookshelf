@@ -1,6 +1,6 @@
 const express = require("express");
 
-const {addBook, getBooks, getBook} = require("../controllers/books.controller");
+const {addBook, getBooks, getBook, updateBook} = require("../controllers/books.controller");
 
 const booksRouter = express.Router();
 
@@ -10,6 +10,8 @@ booksRouter.post("/", addBook);
 booksRouter.get('/', getBooks);
 booksRouter.get('/:id', getBook);
 //U
+booksRouter.put('/', (_req, res) => res.status(405).json({error: 'Method Not Allowed'}));
+booksRouter.put('/:id', updateBook);
 //D
 
 module.exports = booksRouter;
