@@ -38,7 +38,6 @@ const booksRouter = express.Router();
  * @swagger
  * tags:
  *  - name: Books
- *    description: a RESTful API representation of the bookshelf in my office
  */
 
 /**
