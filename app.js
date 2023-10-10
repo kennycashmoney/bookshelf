@@ -29,10 +29,12 @@ app.use(express.json()); // parse the request body to JSON object
 app.use("/books", booksRouter);
 
 /** Error Handling */
-app.use((_req, res) => res.status(404).send("Sorry can't find that!"));
+app.use((_req, res) =>
+  res.status(404).json({ error: "Sorry can't find that!" })
+);
 app.use((err, _req, res, _next) => {
   console.error(err.stack);
-  res.status(500).send("Something broke!");
+  res.status(500).json({ error: "Something broke!" });
 });
 
 module.exports = app;
