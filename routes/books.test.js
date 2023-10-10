@@ -7,11 +7,11 @@ const testBook = {
 };
 
 const testIDs = {
-    getTest: 1,
-    putTest: 2,
-    deleteTest: 3,
-    notFoundTest: 999999,
-}
+  getTest: 1,
+  putTest: 2,
+  deleteTest: 3,
+  notFoundTest: 999999,
+};
 
 describe("Test POST /books", () => {
   test("It should respond with 201 created", async () => {
@@ -171,5 +171,16 @@ describe("Test DELETE /books/{id}", () => {
       .expect(404);
 
     expect(response.body).toStrictEqual({ error: "book not found..." });
+  });
+});
+
+describe("Test 404 routing", () => {
+  test("It should respond with 404 Not Found", async () => {
+    const response = await request(app)
+      .get("/doesnt-exist")
+      .expect("Content-Type", /json/)
+      .expect(404);
+
+    expect(response.body).toStrictEqual({ error: "Sorry can't find that!" });
   });
 });
