@@ -78,7 +78,7 @@ function postBook(req, res) {
   books.push(newBook);
   incrementNextAutoId();
 
-  res.json(newBook);
+  res.status(201).json(newBook);
 }
 
 
@@ -96,7 +96,7 @@ function postBook(req, res) {
  *              description: Something broke!
  */
 function getBooks(_req, res) {
-  res.json(books);
+  res.status(200).json(books);
 }
 
 
@@ -130,7 +130,7 @@ function getBook(req, res) {
     return res.status(404).json({ error: "book not found..." });
   }
 
-  res.json(book);
+  res.status(200).json(book);
 }
 
 
@@ -151,6 +151,8 @@ function getBook(req, res) {
  *      responses:
  *          200:
  *              description: Success! Returns the updated book JSON
+ *          400:
+ *              description: Missing book title
  *          404:
  *              description: Book not found...
  *          500:
@@ -167,14 +169,14 @@ function putBook(req, res) {
   const { title } = req.body;
   if (!title) {
     return res
-      .status(202)
-      .json({ error: "No Content. Need to include a title..." });
+      .status(400)
+      .json({ error: "Missing book title" });
   }
 
   book.title = title;
   book.author = req.body.author ? req.body.author : "N/A";
 
-  res.json(book);
+  res.status(200).json(book);
 }
 
 
@@ -208,7 +210,7 @@ function deleteBook(req, res) {
     return res.status(404).json({ error: "book not found..." });
   }
 
-  res.json(books.splice(bookId, 1));
+  res.status(200).json(books.splice(bookId, 1));
 }
 
 module.exports = {
