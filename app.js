@@ -5,7 +5,6 @@ const swaggerJsDoc = require('swagger-jsdoc');
 const booksRouter = require("./routes/books.router");
 
 const app = express();
-const PORT = 3000;
 
 /** Swagger Docs */
 const options = {
@@ -42,4 +41,4 @@ app.use((err, _req, res, _next) => {
   res.status(500).send("Something broke!");
 });
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
+module.exports = app;
