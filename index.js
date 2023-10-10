@@ -17,7 +17,7 @@ const options = {
             description: "a RESTful API representation of the bookshelf in my office"
         }
     },
-    apis: ["./controllers/*.js"],
+    apis: ["./routes/*.js"],
 };
 const specs = swaggerJsDoc(options);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
