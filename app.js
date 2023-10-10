@@ -1,34 +1,28 @@
 const express = require("express");
-const swaggerUI = require('swagger-ui-express');
-const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUI = require("swagger-ui-express");
+const swaggerJsDoc = require("swagger-jsdoc");
+const morgan = require("morgan");
 
 const booksRouter = require("./routes/books.router");
 
 const app = express();
 
+app.use(morgan("combined")); // logging
+
 /** Swagger Docs */
 const options = {
-    definition: {
-        openapi: "3.0.0",
-        info: {
-            title: "Bookshelf",
-            version: "1.0.0",
-            description: "a RESTful API representation of the bookshelf in my office"
-        }
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Bookshelf",
+      version: "1.0.0",
+      description: "a RESTful API representation of the bookshelf in my office",
     },
-    apis: ["./routes/*.js"],
+  },
+  apis: ["./routes/*.js"],
 };
 const specs = swaggerJsDoc(options);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
-
-
-/** Logging Middleware */
-app.use((req, _res, next) => {
-  const start = Date.now();
-  next();
-  const delta = Date.now() - start;
-  console.log(`${req.method} ${req.baseUrl}${req.url} ${delta}ms`);
-});
 
 /** API Router */
 app.use(express.json()); // parse the request body to JSON object
